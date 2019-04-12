@@ -1,9 +1,21 @@
-[name=size] {
-  align-items: center;
-}
-
 .card {
   text-align: center;
   margin: 1%;
   padding: 1%;
+}
+
+.topping-details {
+  display: none;
+}
+
+#toppings-select p {
+  font-weight: bold;
+}
+
+.topping {
+  text-align: left;
+}
+
+h3 {
+  text-decoration: underline;
 }
