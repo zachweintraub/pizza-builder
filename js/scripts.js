@@ -24,7 +24,7 @@ Pizza.prototype.calcPrice = function() {
   if(this.size == 'Small') {
     price += 8;
     for (var i = 0; i < this.toppings.length; i++) {
-      if(this.toppings[i].position == 'Whole') {
+      if(this.toppings[i].position == 'Whole Pie') {
         if(this.toppings[i].qty == 'Regular') {
           price += 0.5;
         } else price += 1;
@@ -38,7 +38,7 @@ Pizza.prototype.calcPrice = function() {
   if(this.size == 'Medium') {
     price += 10;
     for (var i = 0; i < this.toppings.length; i++) {
-      if(this.toppings[i].position == 'Whole') {
+      if(this.toppings[i].position == 'Whole Pie') {
         if(this.toppings[i].qty == 'Regular') {
           price += 0.75;
         } else price += 1.50;
@@ -52,7 +52,7 @@ Pizza.prototype.calcPrice = function() {
   if(this.size == 'Large') {
     price += 12;
     for (var i = 0; i < this.toppings.length; i++) {
-      if(this.toppings[i].position == 'Whole') {
+      if(this.toppings[i].position == 'Whole Pie') {
         if(this.toppings[i].qty == 'Regular') {
           price += 1;
         } else price += 2;
@@ -97,7 +97,7 @@ Pizza.prototype.calcPrice = function() {
 
 var currentPizza = new Pizza();
 
-
+//update selected toppings for current pizza
 function toppingSelect() {
   currentPizza.toppings = [];
   $('#toppings-select input:checkbox:checked').each(function(){
@@ -112,10 +112,20 @@ function toppingSelect() {
   });
 }
 
+//update position of selected topping (left, right, or whole pie)
 function toppingPositionCustomize(topping, position) {
   for(var i = 0; i < currentPizza.toppings.length; i++) {
     if(currentPizza.toppings[i].topping == topping.replace('-', ' ')) {
       currentPizza.toppings[i].position = position;
+    }
+  }
+}
+
+//update quantity of selected topping (regular or extra)
+function toppingQtyCustomize(topping, qty) {
+  for(var i = 0; i < currentPizza.toppings.length; i++) {
+    if(currentPizza.toppings[i].topping == topping.replace('-', ' ')) {
+      currentPizza.toppings[i].qty = qty;
     }
   }
 }
@@ -132,13 +142,11 @@ $(function(){
   });
 
   $('[id$=position]').change(function(){
-    console.log($(this).attr('id').slice(0, -9))
     toppingPositionCustomize($(this).attr('id').slice(0, -9), $(this).val());
   });
 
   $('[id$=qty]').change(function(){
-    console.log('works');
+    toppingQtyCustomize($(this).attr('id').slice(0, -4), $(this).val());
   });
-
 
 });
