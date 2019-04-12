@@ -1,0 +1,9 @@
+[name=size] {
+  align-items: center;
+}
+
+.card {
+  text-align: center;
+  margin: 1%;
+  padding: 1%;
+}
