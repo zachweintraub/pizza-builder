@@ -12,6 +12,10 @@
   font-weight: bold;
 }
 
+#toppings-select {
+  display: none;
+}
+
 .topping {
   text-align: left;
 }
