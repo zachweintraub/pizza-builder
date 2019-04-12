@@ -16,6 +16,10 @@
   display: none;
 }
 
+#review-pizza {
+  display: none;
+}
+
 .topping {
   text-align: left;
 }

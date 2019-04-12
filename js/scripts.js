@@ -63,7 +63,7 @@ Pizza.prototype.calcPrice = function() {
       }
     }
   }
-  return price;
+  return parseFloat(price, 2);
 }
 
 // Pizza.prototype.compileInfo = function() {
@@ -130,27 +130,31 @@ function toppingQtyCustomize(topping, qty) {
   }
 }
 
+function updateCost() {
+  $('#current-pizza-cost').text(currentPizza.calcPrice());
+}
+
 $(function(){
   $('#size-select input').change(function(){
     currentPizza.size = $('#size-select input:checked').val();
     $('#toppings-select').slideDown();
+    $('#review-pizza').slideDown();
+    updateCost();
   });
 
   $('#toppings-select input:checkbox').change(function(){
     $(this).siblings('.row').slideToggle();
     toppingSelect();
+    updateCost();
   });
 
   $('[id$=position]').change(function(){
     toppingPositionCustomize($(this).attr('id').slice(0, -9), $(this).val());
+    updateCost();
   });
 
   $('[id$=qty]').change(function(){
     toppingQtyCustomize($(this).attr('id').slice(0, -4), $(this).val());
+    updateCost();
   });
-
-  $('#calculate-total').click(function(){
-    $('#current-pizza-cost').text(currentPizza.calcPrice());
-  });
-
 });
