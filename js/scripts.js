@@ -149,4 +149,8 @@ $(function(){
     toppingQtyCustomize($(this).attr('id').slice(0, -4), $(this).val());
   });
 
+  $('#calculate-total').click(function(){
+    $('#current-pizza-cost').text(currentPizza.calcPrice());
+  });
+
 });
