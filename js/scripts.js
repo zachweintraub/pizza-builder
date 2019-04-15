@@ -11,7 +11,7 @@ function Topping(topping, position, qty) {
   this.qty = qty;
 }
 
-var order = {
+var cart = {
   pizzas: []
 }
 
@@ -66,34 +66,35 @@ Pizza.prototype.calcPrice = function() {
   return parseFloat(price).toFixed(2);
 }
 
-// Pizza.prototype.compileInfo = function() {
-//   var output = [];
-//   var wholeToppings = [];
-//   var leftToppings = [];
-//   var rightToppings = [];
-//   output.push(this.qty + ' ' + this.size + ' Pizza');
-//   for(var i = 0; i < this.toppings.length; i++) {
-//     if(this.toppings[i].position == 'whole') {
-//       if(this.toppings[i].qty == 'regular') {
-//         wholeToppings.push(this.toppings[i].topping);
-//       } else wholeToppings.push('Extra ' + this.toppings[i].topping);
-//     }
-//     if(this.toppings[i].position == 'left') {
-//       if(this.toppings[i].qty == 'regular') {
-//         leftToppings.push(this.toppings[i].topping);
-//       } else leftToppings.push('Extra ' + this.toppings[i].topping);
-//     }
-//     if(this.toppings[i].position == 'right') {
-//       if(this.toppings[i].qty == 'regular') {
-//         rightToppings.push(this.toppings[i].topping);
-//       } else rightToppings.push('Extra ' + this.toppings[i].topping);
-//     }
-//   }
-//   output.push(wholeToppings);
-//   output.push(leftToppings);
-//   output.push(rightToppings);
-//   return output;
-// }
+//sorts information about current pizza based on user selections
+Pizza.prototype.compileInfo = function() {
+  var output = [];
+  var wholeToppings = [];
+  var leftToppings = [];
+  var rightToppings = [];
+  output.push(this.qty + ' ' + this.size + ' Pizza');
+  for(var i = 0; i < this.toppings.length; i++) {
+    if(this.toppings[i].position == 'Whole Pie') {
+      if(this.toppings[i].qty == 'Regular') {
+        wholeToppings.push(this.toppings[i].topping);
+      } else wholeToppings.push('Extra ' + this.toppings[i].topping);
+    }
+    if(this.toppings[i].position == 'Left Side') {
+      if(this.toppings[i].qty == 'Regular') {
+        leftToppings.push(this.toppings[i].topping);
+      } else leftToppings.push('Extra ' + this.toppings[i].topping);
+    }
+    if(this.toppings[i].position == 'Right Side') {
+      if(this.toppings[i].qty == 'Regular') {
+        rightToppings.push(this.toppings[i].topping);
+      } else rightToppings.push('Extra ' + this.toppings[i].topping);
+    }
+  }
+  output.push(wholeToppings);
+  output.push(leftToppings);
+  output.push(rightToppings);
+  return output;
+}
 
 var currentPizza = new Pizza();
 
@@ -130,8 +131,21 @@ function toppingQtyCustomize(topping, qty) {
   }
 }
 
+//UI LOGIC
+
+//update cost of current pizza
 function updateCost() {
   $('#current-pizza-cost').text(currentPizza.calcPrice());
+}
+
+//confirm selections for current pizza and add to cart
+function addToCart() {
+  var orderedPizza = currentPizza;
+  orderedPizza.price = orderedPizza.calcPrice();
+  orderedPizza.info = orderedPizza.compileInfo();
+  cart.pizzas.push(orderedPizza);
+  $('#size-select').slideUp();
+  $('#toppings-select').slideUp();
 }
 
 $(function(){
@@ -151,10 +165,15 @@ $(function(){
   $('[id$=position]').change(function(){
     toppingPositionCustomize($(this).attr('id').slice(0, -9), $(this).val());
     updateCost();
+    console.log($(this).val());
   });
 
   $('[id$=qty]').change(function(){
     toppingQtyCustomize($(this).attr('id').slice(0, -4), $(this).val());
     updateCost();
+  });
+
+  $('#add-to-cart').click(function(){
+    addToCart();
   });
 });

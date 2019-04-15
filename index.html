@@ -10,6 +10,10 @@
   </head>
   <body>
     <div class="container">
+      <div id="header" class="card">
+        <h3>PIZZA PLAZA</h3>
+        <p>Go ahead, place an order.</p>
+      </div>
       <div id="size-select" class="card">
         <h3>Choose Your Size</h3>
         <div class="row">
@@ -258,8 +262,16 @@
         </div>
       </div>
       <div id="review-pizza">
-        <p>Order Subtotal: $<span id="current-pizza-cost"></span></p>
-        <a href="https://www.youtube.com/watch?v=ntqaSt89z4k" target="_blank"><button id="checkout-button">Proceed to Checkout</button></a>
+        <div class="row">
+          <div class="col-sm-6">
+            <p>Cost of current pizza: $<span id="current-pizza-cost"></span></p>
+            <button id="add-to-cart">Add to Cart</button></a>
+          </div>
+          <div class="col-sm-6" id="cart">
+            <p>Order Subtotal: $<span id="current-order-cost"></span></p>
+            <a href="https://www.youtube.com/watch?v=ntqaSt89z4k" target="_blank"><button id="checkout-button">Proceed to Checkout</button></a>
+          </div>
+        </div>
       </div>
     </div>
   </body>
