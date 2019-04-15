@@ -63,7 +63,7 @@ Pizza.prototype.calcPrice = function() {
       }
     }
   }
-  return parseFloat(price, 2);
+  return parseFloat(price).toFixed(2);
 }
 
 // Pizza.prototype.compileInfo = function() {
