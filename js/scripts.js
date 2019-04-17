@@ -146,6 +146,10 @@ function addToCart() {
   cart.pizzas.push(orderedPizza);
   $('#size-select').slideUp();
   $('#toppings-select').slideUp();
+  $('#review-pizza').slideUp();
+  $('#cart').slideDown();
+  $('#ordered-pizza-cost').text(orderedPizza.price);
+  $('#ordered-pizza-name').text(orderedPizza.info[0]);
 }
 
 $(function(){
