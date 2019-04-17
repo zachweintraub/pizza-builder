@@ -69,9 +69,9 @@ Pizza.prototype.calcPrice = function() {
 //sorts information about current pizza based on user selections
 Pizza.prototype.compileInfo = function() {
   var output = [];
-  var wholeToppings = [];
-  var leftToppings = [];
-  var rightToppings = [];
+  var wholeToppings = ['Whole Pie:'];
+  var leftToppings = ['Left Side:'];
+  var rightToppings = ['Right Side:'];
   output.push(this.qty + ' ' + this.size + ' Pizza');
   for(var i = 0; i < this.toppings.length; i++) {
     if(this.toppings[i].position == 'Whole Pie') {
@@ -150,11 +150,21 @@ function addToCart() {
   $('#cart').slideDown();
   $('#ordered-pizza-cost').text(orderedPizza.price);
   $('#ordered-pizza-name').text(orderedPizza.info[0]);
+  if(orderedPizza.info[1].length > 1) {
+    $('#ordered-pizza-toppings').text(orderedPizza.info[1][0] + ' ' + orderedPizza.info[1].splice(1).join(', '));
+  }
+  if(orderedPizza.info[2].length > 1) {
+    $('#ordered-pizza-toppings-left').text(orderedPizza.info[2][0] + ' ' + orderedPizza.info[2].splice(1).join(', '));
+  }
+  if(orderedPizza.info[3].length > 1) {
+    $('#ordered-pizza-toppings-right').text(orderedPizza.info[3][0] + ' ' + orderedPizza.info[3].splice(1).join(', '));
+  }
 }
 
 $(function(){
   $('#size-select input').change(function(){
     currentPizza.size = $('#size-select input:checked').val();
+    $('#add-to-cart').attr('disabled', false);
     $('#toppings-select').slideDown();
     $('#review-pizza').slideDown();
     updateCost();
